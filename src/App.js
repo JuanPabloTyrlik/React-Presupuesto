@@ -1,14 +1,12 @@
 import React from "react";
-import Pregunta from "./components/Pregunta";
+import Main from "./components/Main";
 
 function App() {
   return (
     <div className="container">
       <header>
         <h1>Gasto Semanal</h1>
-        <div className="contenido contenido-principal">
-          <Pregunta />
-        </div>
+        <Main />
       </header>
     </div>
   );
