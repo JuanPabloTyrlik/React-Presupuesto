@@ -1,21 +1,41 @@
 import React, { useState } from "react";
 import Pregunta from "./Pregunta";
 import Formulario from "./Formulario";
+import Listado from "./Listado";
+import ControlPresupuesto from "./ControlPresupuesto";
 
 const Main = () => {
-  const [presupuesto, setPresupuesto] = useState(0);
-  const [restante, setRestante] = useState(0);
+  const [presupuestoTotal, setPresupuestoTotal] = useState({presupuesto: 0, restante: 0});
+  const [gastos, setGastos] = useState([]);
+
+  const agregarGasto = (gasto) => {
+    setPresupuestoTotal({
+      ...presupuestoTotal,
+      restante: presupuestoTotal.restante - gasto.cantidad
+    });
+    setGastos([...gastos, gasto]);
+  }
+
   return (
     <div className="contenido contenido-principal">
-      {presupuesto ? (
+      {presupuestoTotal.presupuesto ? (
         <div className="row">
           <div className="one-half column">
-            <Formulario />
+            <Formulario 
+              agregarGasto={agregarGasto}
+            />
           </div>
-          <div className="one-half column">2</div>
+          <div className="one-half column">
+            <Listado 
+              gastos={gastos}
+            />
+            <ControlPresupuesto 
+              presupuestoTotal={presupuestoTotal}
+            />
+          </div>
         </div>
       ) : (
-        <Pregunta setPresupuesto={setPresupuesto} setRestante={setRestante} />
+        <Pregunta setPresupuestoTotal={setPresupuestoTotal} />
       )}
     </div>
   );
