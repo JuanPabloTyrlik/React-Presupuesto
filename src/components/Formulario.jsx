@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Error from "./Error";
 import shortid from "shortid";
+import PropTypes from "prop-types";
 
 const Formulario = ({ agregarGasto }) => {
   const [gasto, setGasto] = useState({ nombre: "", cantidad: 0 });
@@ -16,7 +17,12 @@ const Formulario = ({ agregarGasto }) => {
   const nuevoGasto = (e) => {
     const { nombre, cantidad } = gasto;
     e.preventDefault();
-    if (isNaN(cantidad) || cantidad < 1 || !isNaN(nombre) || nombre.trim() === "") {
+    if (
+      isNaN(cantidad) ||
+      cantidad < 1 ||
+      !isNaN(nombre) ||
+      nombre.trim() === ""
+    ) {
       setError(true);
       setGasto({ nombre: "", cantidad: 0 });
       return;
@@ -65,6 +71,10 @@ const Formulario = ({ agregarGasto }) => {
       />
     </form>
   );
+};
+
+Formulario.propTypes = {
+  agregarGasto: PropTypes.func.isRequired,
 };
 
 export default Formulario;
